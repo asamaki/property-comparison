@@ -17,5 +17,5 @@ app.get('/users', (req, res) => {
   res.send(JSON.stringify(users))
 })
 
-const api = functions.https.region('asia-northeast1').onRequest(app)
+const api = functions.region('asia-northeast1').https.onRequest(app)
 module.exports = { api }
