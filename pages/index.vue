@@ -19,10 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="favorite in $store.getters.getFavorites"
-          :key="favorite.title"
-        >
+        <tr v-for="favorite in $store.getters.getFavorites" :key="favorite.id">
           <td>{{ favorite.title }}</td>
           <td>{{ favorite.price }}</td>
         </tr>
@@ -41,6 +38,7 @@ export default {
     login() {
       console.log('login')
       this.$store.dispatch('login')
+      this.$store.dispatch('fetchFavorites')
     },
     logout() {
       console.log('logout')
