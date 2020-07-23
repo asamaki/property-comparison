@@ -51,6 +51,7 @@ export const actions = {
       .then(() => {
         commit('setUserUid', null)
         commit('setUserName', null)
+        commit('clearFavorites')
       })
       .catch((error) => {
         alert(error)
@@ -98,7 +99,6 @@ export const getters = {
     return state.favorites
   },
   isAuthenticated(state) {
-    console.log('isAuthenticated')
     return !!state.userUid
   },
 }
