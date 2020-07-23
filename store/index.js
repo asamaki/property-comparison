@@ -32,6 +32,20 @@ export const actions = {
         console.log('error : ' + errorCode)
       })
   },
+  logout({ commit }) {
+    console.log('logout action')
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        // this.setUser(null)
+        commit('setUserUid', null)
+        commit('setUserName', null)
+      })
+      .catch((error) => {
+        alert(error)
+      })
+  },
 }
 
 export const getters = {
@@ -40,5 +54,9 @@ export const getters = {
   },
   getUserName(state) {
     return state.userName
+  },
+  isAuthenticated(state) {
+    console.log('isAuthenticated')
+    return !!state.userUid
   },
 }
