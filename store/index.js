@@ -1,8 +1,11 @@
 import firebase from '~/plugins/firebase'
+const db = firebase.firestore()
+const favoriteRef = db.collection('favorites')
 
 export const state = () => ({
   userUid: '',
   userName: '',
+  favorites: [],
 })
 
 export const mutations = {
@@ -11,6 +14,9 @@ export const mutations = {
   },
   setUserName(state, userName) {
     state.userName = userName
+  },
+  addFavorite(state, favorite) {
+    state.favorites.push(favorite)
   },
 }
 
@@ -38,12 +44,24 @@ export const actions = {
       .auth()
       .signOut()
       .then(() => {
-        // this.setUser(null)
         commit('setUserUid', null)
         commit('setUserName', null)
       })
       .catch((error) => {
         alert(error)
+      })
+  },
+  fetchFavorites({ commit }) {
+    favoriteRef
+      .get()
+      .then((res) => {
+        res.forEach((doc) => {
+          console.log('success : ' + `${doc.id} => ${doc.data()}`)
+          commit('addFavorite', doc.data())
+        })
+      })
+      .catch((error) => {
+        console.log('error : ' + error)
       })
   },
 }
@@ -54,6 +72,9 @@ export const getters = {
   },
   getUserName(state) {
     return state.userName
+  },
+  getFavorites(state) {
+    return state.favorites
   },
   isAuthenticated(state) {
     console.log('isAuthenticated')
