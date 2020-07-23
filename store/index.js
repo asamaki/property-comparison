@@ -18,6 +18,11 @@ export const mutations = {
   addFavorite(state, favorite) {
     state.favorites.push(favorite)
   },
+  clearFavorites(state) {
+    console.log('clearFavorites')
+
+    state.favorites = []
+  },
 }
 
 export const actions = {
@@ -55,6 +60,7 @@ export const actions = {
     favoriteRef
       .get()
       .then((res) => {
+        commit('clearFavorites')
         res.forEach((doc) => {
           console.log('success : ' + `${doc.id} => ${doc.data()}`)
           commit('addFavorite', doc.data())
@@ -62,6 +68,21 @@ export const actions = {
       })
       .catch((error) => {
         console.log('error : ' + error)
+      })
+  },
+  addFavorite({ commit }, todo) {
+    console.log(todo)
+    favoriteRef
+      .add({
+        todo: todo.todo,
+        limit: todo.limit,
+      })
+      .then(function (docRef) {
+        console.log('Document written with ID: ', docRef.id)
+        commit('addTodo', todo)
+      })
+      .catch(function (error) {
+        console.error('Error adding document: ', error)
       })
   },
 }
