@@ -16,7 +16,8 @@
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/bulma": "^1.2.7",
     "firebase": "^7.16.1",
-    "nuxt": "^2.13.0"
+    "nuxt": "^2.13.0",
+    "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.0.0",
