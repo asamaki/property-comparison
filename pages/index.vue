@@ -25,8 +25,8 @@
       </thead>
       <tbody>
         <tr v-for="favorite in $store.getters.getFavorites" :key="favorite.id">
-          <td>{{ favorite.title }}</td>
-          <td>{{ favorite.price }}</td>
+          <td>{{ favorite.name }}</td>
+          <td>{{ favorite.price | addComma }}</td>
           <td>{{ favorite.managementFee | addComma }}</td>
           <td>{{ favorite.renovationJackpot | addComma }}</td>
           <td>
@@ -73,10 +73,9 @@ export default {
       this.$store.dispatch('logout')
     },
     totalCost(price, managementFee, renovationJackpot) {
-      const priceNum = price * 10000
       const tocalManagementFee = managementFee * LOAN_YEARS * MONTHS
       const totalRenovationJackpot = renovationJackpot * LOAN_YEARS * MONTHS
-      return priceNum + tocalManagementFee + totalRenovationJackpot
+      return price + tocalManagementFee + totalRenovationJackpot
     },
     monthlyAmount(price, managementFee, renovationJackpot) {
       return Math.floor(
