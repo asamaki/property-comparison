@@ -7,9 +7,9 @@ var fireStore = admin.firestore()
 
 const app = express()
 
-app.add('/favorites', async (req, res) => {
+app.post('/favorites', async (req, res) => {
   const browser = await puppeteer.launch({
-    //args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    // args: ["--no-sandbox", "--disable-setuid-sandbox"],
     // headless: false, // ヘッドレスをオフに
     // slowMo: 100, // 動作を遅く
   })
@@ -17,8 +17,7 @@ app.add('/favorites', async (req, res) => {
   const userAgent =
     'Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Mobile/15E148 Safari/604.1'
   page.setUserAgent(userAgent)
-  const url =
-    'https://suumo.jp/ms/chuko/tokyo/sc_edogawa/nc_94207822/?suit=STkr20180612200'
+  const url = req.body.url
   await page.setJavaScriptEnabled(true)
   await page.goto(url, { waitUntil: 'networkidle0' })
 
