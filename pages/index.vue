@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isAuthenticated">
-      <p class="title is-s is-spaced">{{ $store.getters.getUserName }}さん</p>
+      <span class="title is-s">{{ $store.getters.getUserName }}さん</span>
       <button class="button is-primary is-rounded" @click="logout">
         ログアウト
       </button>

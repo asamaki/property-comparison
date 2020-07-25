@@ -80,7 +80,7 @@ export const actions = {
       })
       .then(function (docRef) {
         console.log('Document written with ID: ', docRef.id)
-        commit('addTodo', todo)
+        commit('addFavorite', todo)
       })
       .catch(function (error) {
         console.error('Error adding document: ', error)
