@@ -4,7 +4,14 @@ Content-Type: application/x-www-form-urlencoded
 url=https://suumo.jp/ms/chuko/tokyo/sc_edogawa/nc_94207822/?suit=STkr20180612200
 
 ###
+POST http://localhost:5000/property-comparison/asia-northeast1/api/favorites
+Content-Type: application/x-www-form-urlencoded
+
+url=https://suumo.jp/sp/chukomansion/tokyo/sc_123/pj_94464844/?kbn=2
+
+
+###
 POST https://asia-northeast1-property-comparison.cloudfunctions.net/api/favorites
 Content-Type: application/x-www-form-urlencoded
 
-url=https://suumo.jp/ms/chuko/tokyo/sc_edogawa/nc_94207822/?suit=STkr20180612200
+url=https://suumo.jp/ms/chuko/tokyo/sc_minato/nc_93722567/
