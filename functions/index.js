@@ -94,7 +94,7 @@ const api = functions
   .region('asia-northeast1')
   .runWith({
     timeoutSeconds: 120,
-    memory: '512MB',
+    memory: '2GB',
   })
   .https.onRequest(app)
 module.exports = { api }
