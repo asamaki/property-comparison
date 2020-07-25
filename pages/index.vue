@@ -73,15 +73,29 @@ export default {
       this.$store.dispatch('logout')
     },
     totalCost(price, managementFee, renovationJackpot) {
-      const tocalManagementFee = managementFee * LOAN_YEARS * MONTHS
+      const totalManagementFee = managementFee * LOAN_YEARS * MONTHS
       const totalRenovationJackpot = renovationJackpot * LOAN_YEARS * MONTHS
-      return price + tocalManagementFee + totalRenovationJackpot
+      return (
+        this.costByInterest(price) * (LOAN_YEARS * MONTHS) +
+        totalManagementFee +
+        totalRenovationJackpot
+      )
     },
     monthlyAmount(price, managementFee, renovationJackpot) {
       return Math.floor(
         this.totalCost(price, managementFee, renovationJackpot) /
           (LOAN_YEARS * MONTHS)
       )
+    },
+
+    // （例）借入金1000万円，利率年3.0%，返済期間20年の場合の
+    // 【１行数式】10000000*3/100/12*(1+3/12/100)^(20*12)/((1+3/100/12)^(20*12)-1)
+    costByInterest(price) {
+      const yearlyInterestRate = 0.00725
+      const monthryInterenstRate = yearlyInterestRate / MONTHS
+      const that = (1 + monthryInterenstRate) ** (LOAN_YEARS * MONTHS)
+
+      return Math.floor((price * monthryInterenstRate * that) / (that - 1))
     },
   },
   computed: {
