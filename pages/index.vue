@@ -19,7 +19,7 @@
           <th>管理費等</th>
           <th>修繕積立金</th>
           <th>35年ローン総額</th>
-          <th>35年ローン月額</th>
+          <th>月の支払い額</th>
           <th></th>
         </tr>
       </thead>
@@ -51,18 +51,31 @@
         </tr>
       </tbody>
     </table>
+    <button class="button is-primary" @click="addFavorite()">追加</button>
+    <b-modal :active.sync="isModalActive" has-modal-card>
+      <add-favorite></add-favorite
+    ></b-modal>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import addFavoriteModal from '@/components/addFavoriteModal'
 const LOAN_YEARS = 35
 const MONTHS = 12
 export default {
+  data() {
+    return {
+      isModalActive: false,
+    }
+  },
   created() {
     this.$store.dispatch('fetchFavorites')
   },
   methods: {
+    addFavorite() {
+      this.isModalActive = true
+    },
     login() {
       console.log('login')
       this.$store.dispatch('login')
@@ -105,6 +118,9 @@ export default {
     addComma(value) {
       return value.toLocaleString()
     },
+  },
+  components: {
+    'add-favorite': addFavoriteModal,
   },
 }
 </script>

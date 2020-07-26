@@ -71,19 +71,16 @@ export const actions = {
         console.log('error : ' + error)
       })
   },
-  addFavorite({ commit }, todo) {
-    console.log(todo)
+  addFavorite({ commit }, favorite) {
+    console.log('addFavorite')
     favoriteRef
-      .add({
-        todo: todo.todo,
-        limit: todo.limit,
+      .add(favorite)
+      .then((ref) => {
+        console.log('Added document with ID: ', ref.id)
+        commit('addFavorite', favorite)
       })
-      .then(function (docRef) {
-        console.log('Document written with ID: ', docRef.id)
-        commit('addFavorite', todo)
-      })
-      .catch(function (error) {
-        console.error('Error adding document: ', error)
+      .catch((err) => {
+        throw new Error('ERROR HAPPENED.' + err)
       })
   },
 }
