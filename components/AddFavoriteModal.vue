@@ -14,7 +14,7 @@
       </b-field>
       <b-field label="管理費等">
         <b-input
-          :value="managementFee"
+          v-model="managementFee"
           type="number"
           placeholder="10000"
           required
