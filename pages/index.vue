@@ -30,13 +30,7 @@
           <td>{{ favorite.managementFee | addComma }}</td>
           <td>{{ favorite.renovationJackpot | addComma }}</td>
           <td>
-            {{
-              totalCost(
-                favorite.price,
-                favorite.managementFee,
-                favorite.renovationJackpot
-              ) | addComma
-            }}
+            {{ priceAndYearRateCost(favorite.price) | addComma }}
           </td>
           <td>
             {{
@@ -85,11 +79,14 @@ export default {
       console.log('logout')
       this.$store.dispatch('logout')
     },
+    priceAndYearRateCost(price) {
+      return this.costByInterest(price) * (LOAN_YEARS * MONTHS)
+    },
     totalCost(price, managementFee, renovationJackpot) {
       const totalManagementFee = managementFee * LOAN_YEARS * MONTHS
       const totalRenovationJackpot = renovationJackpot * LOAN_YEARS * MONTHS
       return (
-        this.costByInterest(price) * (LOAN_YEARS * MONTHS) +
+        this.priceAndYearRateCost(price) +
         totalManagementFee +
         totalRenovationJackpot
       )
