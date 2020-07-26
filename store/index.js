@@ -76,11 +76,20 @@ export const actions = {
     favoriteRef
       .add(favorite)
       .then((ref) => {
-        console.log('Added document with ID: ', ref.id)
-        commit('addFavorite', favorite)
+        favorite.id = ref.id
+        favoriteRef
+          .doc(ref.id)
+          .set(favorite)
+          .then(() => {
+            console.log('Added document with ID: ', ref.id)
+            commit('addFavorite', favorite)
+          })
+          .catch((err) => {
+            throw new Error('ERROR addFavorite update.' + err)
+          })
       })
       .catch((err) => {
-        throw new Error('ERROR HAPPENED.' + err)
+        throw new Error('ERROR addFavorite add.' + err)
       })
   },
 }
